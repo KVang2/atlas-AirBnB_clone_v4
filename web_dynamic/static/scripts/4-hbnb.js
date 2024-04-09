@@ -10,10 +10,15 @@ document.ready(function () {
 	});
 
     // Request places data
-    $.get('http://0.0.0.0:5001/api/v1/places_search/', (data) => {
-        $(".places").empty();
-        data.forEach((place) => {
-            const article =
+    $.ajax({
+        type: "POST",
+        url: 'http://0.0.0.0:5001/api/v1/places_search/',
+        contentType: 'application/json',
+        data: JSON.stringify({}),
+        success: data=> {
+            $(".places").empty();
+            data.forEach((place) => {
+                const article =
                 `<article>
                         <div class="title">
                             <h2>${place.name}</h2>
@@ -43,9 +48,11 @@ document.ready(function () {
                         </div>
                     </article>`;
                 $(".places").append(article);
-    });
-}).fail(function (xhr, status, error) {
+        });
+    },
+    error: function (xhr, status, error) {
         console.error('Error:', error);
+    }
 });
 
 	// get status of API
