@@ -64,3 +64,10 @@ document.ready(function () {
 		}
 	});
 });
+
+    $("button").click(function() {
+        const amenities = [];
+        $('input[type="checkbox"]').each(function () {
+            amenities.push($(this).data("id"));
+        });
+})
